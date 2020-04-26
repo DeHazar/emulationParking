@@ -2,38 +2,35 @@
 /**
  * Created by PhpStorm.
  * User: macpro
- * Date: 14.04.2020
- * Time: 21:05
+ * Date: 17.04.2020
+ * Time: 22:52
  */
-class Car {
+class Transaction {
 
     private $conn;
-    private $table_name = "cars";
+    private $tableName = "transactions";
 
     // свойства объекта
     public $id;
-    public $name;
-    public $description;
-    public $transaction;
+    public $transactionStartTime;
+    public $transactionPaidTime;
+    public $total;
 
     // конструктор для соединения с базой данных
     public function __construct($db){
         $this->conn = $db;
     }
 
-    // метод read() - получение машин
+    // метод read() - получение товаров
     function read(){
 
         // выбираем все записи
         $query = "SELECT
-                c.trans as transactionTime, p.id, p.name, p.description, p.description
+               *
             FROM
-                " . $this->table_name . " p
-                LEFT JOIN
-                    transactions c
-                        ON p.id = c.id
+                " . $this->tableName . "
             ORDER BY
-                p.id DESC";
+                transactionTime DESC";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
@@ -49,22 +46,22 @@ class Car {
 
         // запрос для вставки (создания) записей
         $query = "INSERT INTO
-                " . $this->table_name . "
+                " . $this->tableName . "
             SET
-                name=:name, description=:description, startDate=:startDate";
+                carId=:carId, transactionTime=:transactionTime, price=:price";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
 
         // очистка
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->startDate=htmlspecialchars(strip_tags($this->startDate));
+        $this->carId=htmlspecialchars(strip_tags($this->carId));
+        $this->transactionTime=htmlspecialchars(strip_tags($this->transactionTime));
+        $this->price=htmlspecialchars(strip_tags($this->price));
 
         // привязка значений
-        $stmt->bindParam(":name", $this->name);
-        $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":startDate", $this->startDate);
+        $stmt->bindParam(":carId", $this->carId);
+        $stmt->bindParam(":price", $this->transactionTime);
+        $stmt->bindParam(":startDate", $this->price);
 
         // выполняем запрос
         if ($stmt->execute()) {
@@ -81,7 +78,7 @@ class Car {
         $query = "SELECT
                *
             FROM
-                " . $this->table_name . "
+                " . $this->tableName . "
             WHERE
                 id = ?
             LIMIT
@@ -100,11 +97,9 @@ class Car {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // установим значения свойств объекта
-        $this->name = $row['name'];
-        $this->totalPrice = $row['totalPrice'];
-        $this->description = $row['description'];
-        $this->startDate = $row['startDate'];
-        $this->endDate = $row['endDate'];
+        $this->carId = $row['carId'];
+        $this->transactionTime = $row['transactionTime'];
+        $this->price = $row['price'];
     }
 
     // метод update() - обновление товара
@@ -112,12 +107,11 @@ class Car {
 
         // запрос для обновления записи (товара)
         $query = "UPDATE
-                " . $this->table_name . "
+                " . $this->tableName . "
             SET
-                name = :name,
-                totalPrice = :totalPrice,
-                description = :description,
-                endDate = :endDate
+                carId = :carId,
+                transactionTime = :transactionTime,
+                price = :price
             WHERE
                 id = :id";
 
@@ -125,17 +119,15 @@ class Car {
         $stmt = $this->conn->prepare($query);
 
         // очистка
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->totalPrice=htmlspecialchars(strip_tags($this->price));
-        $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->endDate=htmlspecialchars(strip_tags($this->category_id));
+        $this->carId=htmlspecialchars(strip_tags($this->carId));
+        $this->transactionTime=htmlspecialchars(strip_tags($this->transactionTime));
+        $this->price=htmlspecialchars(strip_tags($this->price));
         $this->id=htmlspecialchars(strip_tags($this->id));
 
         // привязываем значения
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':price', $this->totalPrice);
-        $stmt->bindParam(':description', $this->description);
-        $stmt->bindParam(':category_id', $this->endDate);
+        $stmt->bindParam(':carId', $this->carId);
+        $stmt->bindParam(':price', $this->transactionTime);
+        $stmt->bindParam(':price', $this->price);
         $stmt->bindParam(':id', $this->id);
 
         // выполняем запрос
@@ -150,7 +142,7 @@ class Car {
     function delete(){
 
         // запрос для удаления записи (товара)
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $query = "DELETE FROM " . $this->tableName . " WHERE id = ?";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
@@ -169,5 +161,6 @@ class Car {
         return false;
     }
 }
+
 
 ?>
