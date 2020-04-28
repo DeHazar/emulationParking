@@ -46,10 +46,12 @@ class Transaction {
 
         // запрос для вставки (создания) записей
         $query = "INSERT INTO
-                " . $this->tableName ." (total) VALUES (0)";
+                " . $this->tableName ." (transactionStartTime, total) VALUES (:transactionStartTime, 0)";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':transactionStartTime', $this->transactionStartTime);
+
         $this->conn->beginTransaction();
         // выполняем запрос
         if ($stmt->execute()) {
@@ -100,9 +102,9 @@ class Transaction {
         $query = "UPDATE
                 " . $this->tableName . "
             SET
-                carId = :carId,
-                transactionTime = :transactionTime,
-                price = :price
+                transactionStartTime = :transactionStartTime,
+                transactionPaidTime = :transactionPaidTime,
+                total = :total
             WHERE
                 id = :id";
 
@@ -110,15 +112,15 @@ class Transaction {
         $stmt = $this->conn->prepare($query);
 
         // очистка
-        $this->carId=htmlspecialchars(strip_tags($this->carId));
-        $this->transactionTime=htmlspecialchars(strip_tags($this->transactionTime));
-        $this->price=htmlspecialchars(strip_tags($this->price));
+        $this->transactionStartTime=htmlspecialchars(strip_tags($this->transactionStartTime));
+        $this->transactionPaidTime=htmlspecialchars(strip_tags($this->transactionPaidTime));
+        $this->total=htmlspecialchars(strip_tags($this->total));
         $this->id=htmlspecialchars(strip_tags($this->id));
 
         // привязываем значения
-        $stmt->bindParam(':carId', $this->carId);
-        $stmt->bindParam(':price', $this->transactionTime);
-        $stmt->bindParam(':price', $this->price);
+        $stmt->bindParam(':transactionStartTime', $this->transactionStartTime);
+        $stmt->bindParam(':transactionPaidTime', $this->transactionPaidTime);
+        $stmt->bindParam(':total', $this->total);
         $stmt->bindParam(':id', $this->id);
 
         // выполняем запрос

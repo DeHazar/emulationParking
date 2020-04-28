@@ -14,6 +14,7 @@ class Skud
     // свойства объекта
     public $id;
     public $emptyPlaces;
+    public $priceForMinute;
 
     // конструктор для соединения с базой данных
     public function __construct($db)
@@ -79,6 +80,7 @@ class Skud
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         // установим значения свойств объекта
         $this->emptyPlaces = $row['emptyPlaces'];
+        $this->priceForMinute = $row['priceForMinute'];
     }
 
     function update() {

@@ -58,6 +58,7 @@ class Car {
 
         $transaction = new Transaction($this->conn);
         $transaction->total = 0;
+        $transaction->transactionStartTime =  date('Y-m-d H:i:s');
         $transactionId = $transaction->create();
 
         $skud = new Skud($this->conn);
@@ -112,6 +113,7 @@ class Car {
         $transaction = new Transaction($this->conn);
         $transaction->id =  $row['transactionId'];
         $transaction -> readOne();
+
         $this->transaction = $transaction;
         $this->parkingId = $row['parkingId'];
 
@@ -179,6 +181,23 @@ class Car {
     }
 
     // Оплата
+    function getPaySum() {
+        $this->readOne();
+
+        $parking = new Skud($this->conn);
+        $parking->id = $this->parkingId;
+        $parking->readOne();
+
+        $this->transaction->transactionPaidTime = date('Y-m-d H:i:s');
+
+        $timeMinute = (strtotime($this->transaction->transactionPaidTime )- strtotime($this->transaction->transactionStartTime)) / 60;
+
+        $total = $parking->priceForMinute * $timeMinute;
+        $this->transaction->total = $total;
+
+        $this->transaction->update();
+        return $total;
+    }
 }
 
 ?>
