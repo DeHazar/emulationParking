@@ -18,6 +18,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 // установка количества записей на странице
 $records_per_page = 5;
 
+$totalCount = 400;
+$minutePrice = 1;
+
+
 // расчёт для запроса предела записей
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 ?>

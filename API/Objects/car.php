@@ -5,6 +5,9 @@
  * Date: 14.04.2020
  * Time: 21:05
  */
+include_once  "transaction.php";
+include_once "skud.php";
+
 class Car {
 
     private $conn;
@@ -12,30 +15,29 @@ class Car {
 
     // свойства объекта
     public $id;
-    public $name;
+    public $carNumber;
     public $description;
-    public $startDate;
-    public $endDate;
-    public $totalPrice;
+    public $transaction;
+    public $parkingId;
 
     // конструктор для соединения с базой данных
     public function __construct($db){
         $this->conn = $db;
     }
 
-    // метод read() - получение товаров
+    // метод read() - получение машин
     function read(){
-
+        #$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // выбираем все записи
         $query = "SELECT
-                c.name as category_name, p.id, p.name, p.description, p.price, p.category_id, p.created
+                 p.id, p.carNumber, p.description, p.parkingId, t.id as transactionId, t.transactionPaidTime, t.transactionStartTime, t.total
             FROM
                 " . $this->table_name . " p
                 LEFT JOIN
-                    categories c
-                        ON p.category_id = c.id
+                    transactions t
+                        ON p.transactionId = t.id
             ORDER BY
-                p.created DESC";
+                p.id DESC";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
@@ -46,44 +48,49 @@ class Car {
         return $stmt;
     }
 
-    // метод create - создание товаров
-    function create(){
-
+    // метод create - заезд машины
+    function create() {
+        #$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // запрос для вставки (создания) записей
         $query = "INSERT INTO
-                " . $this->table_name . "
-            SET
-                name=:name, description=:description, startDate=:startDate";
+                " . $this->table_name . " (carNumber,description, transactionId, parkingId)
+            VALUES(:carNumber, :description, :transactionId, :parkingId)";
+
+        $transaction = new Transaction($this->conn);
+        $transaction->total = 0;
+        $transactionId = $transaction->create();
+
+        $skud = new Skud($this->conn);
+        $skud->id = $this->parkingId;
+        $skud->readOne();
+        $skud->income();
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
 
         // очистка
-        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->carNumber=htmlspecialchars(strip_tags($this->carNumber));
         $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->startDate=htmlspecialchars(strip_tags($this->startDate));
-
         // привязка значений
-        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":carNumber", $this->carNumber);
         $stmt->bindParam(":description", $this->description);
-        $stmt->bindParam(":startDate", $this->startDate);
+        $stmt->bindParam(":transactionId", $transactionId);
+        $stmt->bindParam(":parkingId", $this->parkingId);
 
         // выполняем запрос
         if ($stmt->execute()) {
             return true;
         }
-
         return false;
     }
 
-    // используется при заполнении формы обновления товара
-    function readOne() {
 
-        // запрос для чтения одной записи (товара)
-        $query = "SELECT
-               *
+    function readOne() {
+        // запрос для чтения одной записи
+
+        $query = "SELECT *
             FROM
-                " . $this->table_name . "
+                " . $this->table_name . " 
             WHERE
                 id = ?
             LIMIT
@@ -91,7 +98,6 @@ class Car {
 
         // подготовка запроса
         $stmt = $this->conn->prepare( $query );
-
         // привязываем id товара, который будет обновлен
         $stmt->bindParam(1, $this->id);
 
@@ -100,18 +106,19 @@ class Car {
 
         // получаем извлеченную строку
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
         // установим значения свойств объекта
-        $this->name = $row['name'];
-        $this->totalPrice = $row['totalPrice'];
+        $this->carNumber = $row['carNumber'];
         $this->description = $row['description'];
-        $this->startDate = $row['startDate'];
-        $this->endDate = $row['endDate'];
+        $transaction = new Transaction($this->conn);
+        $transaction->id =  $row['transactionId'];
+        $transaction -> readOne();
+        $this->transaction = $transaction;
+        $this->parkingId = $row['parkingId'];
+
     }
 
     // метод update() - обновление товара
-    function update(){
-
+    function update() {
         // запрос для обновления записи (товара)
         $query = "UPDATE
                 " . $this->table_name . "
@@ -170,6 +177,8 @@ class Car {
 
         return false;
     }
+
+    // Оплата
 }
 
 ?>

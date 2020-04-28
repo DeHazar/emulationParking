@@ -13,8 +13,8 @@ header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
 // подключение файла для соединения с базой и файл с объектом
-include_once '../config/database.php';
-include_once '../objects/car.php';
+include_once '../../Config/database.php';
+include_once '../../objects/car.php';
 
 // получаем соединение с базой данных
 $database = new Database();
@@ -29,16 +29,17 @@ $car->id = isset($_GET['id']) ? $_GET['id'] : die();
 // прочитаем детали товара для редактирования
 $car->readOne();
 
-if ($car->name!=null) {
+if ($car->carNumber!=null) {
 
     // создание массива
     $car_arr = array(
-        "id" =>  $car->id,
-        "name" => $car->name,
-        "description" => $car->description,
-        "startDate" => $car->startDate,
-        "endDate" => $car->endDate,
-        "totalPrice" => $car->totalPrice
+        "id" => $car->id ,
+        "carNumber" => $car->carNumber,
+        "description" => html_entity_decode($car->description),
+        "transactionId" => $car->transaction->id,
+        "start_date" => $car->transaction->transactionStartTime,
+        "end_date" => $car->transaction->transactionPaidTime,
+        "total" => $car->transaction->total
     );
 
     // код ответа - 200 OK

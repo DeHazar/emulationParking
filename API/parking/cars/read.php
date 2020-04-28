@@ -11,8 +11,8 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 // подключение базы данных и файл, содержащий объекты
-include_once '../config/database.php';
-include_once '../Objects/car.php';
+include_once '../../Config/database.php';
+include_once '../../objects/car.php';
 
 // получаем соединение с базой данных
 $database = new Database();
@@ -41,12 +41,12 @@ if ($num>0) {
 
         $car_item=array(
             "id" => $id,
-            "name" => $name,
+            "carNumber" => $carNumber,
             "description" => html_entity_decode($description),
-            "price" => $price,
-            "start_date" => startDate,
-            "end_date" => $endDate,
-            "total_price" => $totalPrice
+            "transactionId" => $transactionId,
+            "start_date" => $transactionPaidTime,
+            "end_date" => $transactionStartTime,
+            "total" => $total
         );
 
         array_push($cars_arr["records"], $car_item);

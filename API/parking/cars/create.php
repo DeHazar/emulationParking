@@ -13,10 +13,9 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // получаем соединение с базой данных 
-include_once '../config/database.php';
-
-// создание объекта товара 
-include_once '../objects/car.php';
+include_once '../../Config/database.php';
+include_once '../../objects/car.php';
+include_once '../../objects/skud.php';
 
 $database = new Database();
 $db = $database->getConnection();
@@ -27,16 +26,29 @@ $car = new Car($db);
 $data = json_decode(file_get_contents("php://input"));
  
 // убеждаемся, что данные не пусты 
-if (!empty($data->name)
+if (!empty($data->carNumber)
 ) {
 
     // устанавливаем значения свойств товара 
-    $car->name = $data->name;
+    $car->carNumber = $data->carNumber;
     $car->description = $data->description;
-    $car->startDate = date('Y-m-d H:i:s');
+    $car->parkingId = $data->parkingId;
 
-    // создание товара 
-    if($car->create()){
+    $skud = new Skud($db);
+    $skud->id = $data->parkingId;
+    $skud->readOne();
+
+    if ($skud->emptyPlaces <= 0) {
+        // установим код ответа - 403 неверный запрос
+        http_response_code(403);
+
+        // сообщим пользователю
+        echo json_encode(array("message" => "Парковка заполнена."), JSON_UNESCAPED_UNICODE);
+        return;
+    }
+
+    // создание товара
+    if($car->create()) {
 
         // установим код ответа - 201 создано 
         http_response_code(201);

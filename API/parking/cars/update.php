@@ -13,8 +13,8 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 // подключаем файл для работы с БД и объектом Product 
-include_once '../config/database.php';
-include_once '../objects/car.php';
+include_once '../../Config/database.php';
+include_once '../../objects/car.php';
 
 // получаем соединение с базой данных 
 $database = new Database();
