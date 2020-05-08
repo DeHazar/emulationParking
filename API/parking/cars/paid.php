@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: macpro
- * Date: 28.04.2020
- * Time: 23:34
+ * Date: 08.05.2020
+ * Time: 16:40
  */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -27,16 +28,30 @@ $data = json_decode(file_get_contents("php://input"));
 
 // установим id свойства товара для редактирования
 $car->id = $data->id;
-$total = $car->getPaySum();
+
+$car->readOne();
+$car->transaction->paidTransaction();
+
 // обновление товара
-if ($total > 0) {
+if ($car->update()) {
 
     // установим код ответа - 200 ok
     http_response_code(200);
 
-    // сообщим пользователю
-    echo json_encode(array("transactionId" => $car->transaction->id, "total" => $total, "startTime" => $car->transaction->transactionStartTime,
-        "endTime" => $car->transaction->transactionPaidTime,"message" => "Успешно."), JSON_UNESCAPED_UNICODE);
+    // создание массива
+    $car_arr = array(
+        "transactionId" => $car->transaction->id,
+        "startTime" => $car->transaction->transactionStartTime,
+        "endTime" => $car->transaction->transactionPaidTime,
+        "total" => doubleval($car->transaction->total),
+        "message" => "Успешно."
+    );
+
+    // код ответа - 200 OK
+    http_response_code(200);
+
+    // вывод в формате json
+    echo json_encode($car_arr);
 }
 
 // если не удается обновить товар, сообщим пользователю
@@ -46,6 +61,6 @@ else {
     http_response_code(503);
 
     // сообщение пользователю
-    echo json_encode(array("message" => "Невозможно получить сумму для оплаты."), JSON_UNESCAPED_UNICODE);
+    echo json_encode(array("message" => "Невозможно обновить товар."), JSON_UNESCAPED_UNICODE);
 }
 ?>

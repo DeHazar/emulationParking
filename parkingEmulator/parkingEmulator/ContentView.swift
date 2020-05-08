@@ -12,30 +12,32 @@ struct ContentView: View {
     @EnvironmentObject var viewModel: ParkingViewModel
     var body: some View {
         NavigationView{
-        VStack {
-            viewModel.resource.isLoading() {
-                Group  {
-                    Spacer()
-                    LoadingView()
-                    Spacer()
-                }
-            }
-
-            viewModel.resource.hasError() { error in
-//                print($0)
-                ErrorView(str: error.localizedDescription)
-            }
-
-            viewModel.resource.hasResource() { parking in
-                List {
-                    ForEach (parking,id: \.id) {
-                        ParkingViewRow(item: $0)
+            VStack {
+                viewModel.resource.isLoading() {
+                    Group  {
+                        Spacer()
+                        LoadingView()
+                        Spacer()
                     }
                 }
-            }
+
+                viewModel.resource.hasError() { error in
+                    //                print($0)
+                    ErrorView(str: error.localizedDescription)
+                }
+
+                viewModel.resource.hasResource() { parking in
+                    List {
+                        ForEach (parking,id: \.id) { item in
+                            NavigationLink(destination: FindYourAuto(item: item).environmentObject(CarViewModel(with: ParkingNetwork()))) {
+                                ParkingViewRow(item: item)
+                            }
+                        }
+                    }
+                }
 
             }.onAppear(perform: viewModel.onAppear).navigationBarTitle("Парковки")
-    }
+        }
     }
 }
 

@@ -11,7 +11,7 @@ import Combine
 
 class CarViewModel: NetworkViewModel, ObservableObject {
 
-    typealias NetworkResource = [Parking]
+    typealias NetworkResource = [Auto]
 
     var resource: Resource<NetworkResource> = .loading
     var network: Network
@@ -20,7 +20,14 @@ class CarViewModel: NetworkViewModel, ObservableObject {
 
     init(with network: Network) {
         self.network = network
-        
+    }
+
+    func fetchWithCode(code: String, parkingId: String) {
+        self.network.parametrs = [:]
+        self.network.parametrs!["carNumber"] = code as AnyObject
+        self.network.parametrs!["parkingId"] = parkingId as AnyObject
+
+        onAppear()
     }
 }
 

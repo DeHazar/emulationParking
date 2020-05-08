@@ -25,6 +25,12 @@
 		8E2073732464459C004F5D91 /* ParkingNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E2073722464459C004F5D91 /* ParkingNetwork.swift */; };
 		8E207376246445DE004F5D91 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E207375246445DE004F5D91 /* NetworkViewModel.swift */; };
 		8E20737824644618004F5D91 /* ParkingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E20737724644618004F5D91 /* ParkingViewModel.swift */; };
+		8E961CF524652859000631C7 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CF424652859000631C7 /* Car.swift */; };
+		8E961CF724655BCF000631C7 /* CarViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CF624655BCF000631C7 /* CarViewRow.swift */; };
+		8E961CF92465731E000631C7 /* PayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CF82465731E000631C7 /* PayingView.swift */; };
+		8E961CFB246574C9000631C7 /* PaidViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CFA246574C9000631C7 /* PaidViewModel.swift */; };
+		8E961CFD24657554000631C7 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CFC24657554000631C7 /* Transaction.swift */; };
+		8E961D0024658102000631C7 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E961CFF24658102000631C7 /* String.swift */; };
 		8ED82C7B24644AC900387C93 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED82C7A24644AC900387C93 /* ErrorView.swift */; };
 		8ED82C7D24644C3100387C93 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED82C7C24644C3100387C93 /* LoadingView.swift */; };
 		8ED82C7F246455E400387C93 /* FindYourAuto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED82C7E246455E400387C93 /* FindYourAuto.swift */; };
@@ -73,6 +79,12 @@
 		8E2073722464459C004F5D91 /* ParkingNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingNetwork.swift; sourceTree = "<group>"; };
 		8E207375246445DE004F5D91 /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkViewModel.swift; sourceTree = "<group>"; };
 		8E20737724644618004F5D91 /* ParkingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingViewModel.swift; sourceTree = "<group>"; };
+		8E961CF424652859000631C7 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		8E961CF624655BCF000631C7 /* CarViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewRow.swift; sourceTree = "<group>"; };
+		8E961CF82465731E000631C7 /* PayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayingView.swift; sourceTree = "<group>"; };
+		8E961CFA246574C9000631C7 /* PaidViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaidViewModel.swift; sourceTree = "<group>"; };
+		8E961CFC24657554000631C7 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		8E961CFF24658102000631C7 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8ED82C7A24644AC900387C93 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8ED82C7C24644C3100387C93 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		8ED82C7E246455E400387C93 /* FindYourAuto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindYourAuto.swift; sourceTree = "<group>"; };
@@ -127,12 +139,15 @@
 		8E20733024643E76004F5D91 /* parkingEmulator */ = {
 			isa = PBXGroup;
 			children = (
+				8E961CFE246580FA000631C7 /* Extensions */,
 				8ED82C7724644A9100387C93 /* Views */,
 				8E207374246445D9004F5D91 /* ViewModel */,
 				8E207367246444ED004F5D91 /* API */,
 				8E20736424643F56004F5D91 /* Models */,
-				8E20736124643F0D004F5D91 /* Parkings */,
+				8E20736124643F0D004F5D91 /* ParkingsViews */,
 				8E20733124643E76004F5D91 /* AppDelegate.swift */,
+				8ED82C7E246455E400387C93 /* FindYourAuto.swift */,
+				8E961CF82465731E000631C7 /* PayingView.swift */,
 				8E20733324643E76004F5D91 /* SceneDelegate.swift */,
 				8E20733524643E76004F5D91 /* ContentView.swift */,
 				8E20733724643E79004F5D91 /* Assets.xcassets */,
@@ -169,19 +184,21 @@
 			path = parkingEmulatorUITests;
 			sourceTree = "<group>";
 		};
-		8E20736124643F0D004F5D91 /* Parkings */ = {
+		8E20736124643F0D004F5D91 /* ParkingsViews */ = {
 			isa = PBXGroup;
 			children = (
 				8E20736224643F26004F5D91 /* ParkingViewRow.swift */,
-				8ED82C7E246455E400387C93 /* FindYourAuto.swift */,
+				8E961CF624655BCF000631C7 /* CarViewRow.swift */,
 			);
-			path = Parkings;
+			path = ParkingsViews;
 			sourceTree = "<group>";
 		};
 		8E20736424643F56004F5D91 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8E20736524643FE3004F5D91 /* Parking.swift */,
+				8E961CF424652859000631C7 /* Car.swift */,
+				8E961CFC24657554000631C7 /* Transaction.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,8 +222,17 @@
 				8E207375246445DE004F5D91 /* NetworkViewModel.swift */,
 				8E20737724644618004F5D91 /* ParkingViewModel.swift */,
 				8ED82C802464581500387C93 /* CarViewModel.swift */,
+				8E961CFA246574C9000631C7 /* PaidViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8E961CFE246580FA000631C7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8E961CFF24658102000631C7 /* String.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		8ED82C7724644A9100387C93 /* Views */ = {
@@ -349,20 +375,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E961CFD24657554000631C7 /* Transaction.swift in Sources */,
 				8E20733224643E76004F5D91 /* AppDelegate.swift in Sources */,
+				8E961D0024658102000631C7 /* String.swift in Sources */,
 				8E20736D2464451F004F5D91 /* Resource.swift in Sources */,
+				8E961CF92465731E000631C7 /* PayingView.swift in Sources */,
 				8E20737824644618004F5D91 /* ParkingViewModel.swift in Sources */,
 				8E20736B24644505004F5D91 /* NetworkRoute.swift in Sources */,
 				8ED82C812464581500387C93 /* CarViewModel.swift in Sources */,
+				8E961CF724655BCF000631C7 /* CarViewRow.swift in Sources */,
 				8E207369246444F6004F5D91 /* NetworkMethod.swift in Sources */,
 				8E20733424643E76004F5D91 /* SceneDelegate.swift in Sources */,
 				8ED82C7F246455E400387C93 /* FindYourAuto.swift in Sources */,
 				8E20736F24644547004F5D91 /* Network.swift in Sources */,
+				8E961CFB246574C9000631C7 /* PaidViewModel.swift in Sources */,
 				8E20736624643FE3004F5D91 /* Parking.swift in Sources */,
 				8ED82C7D24644C3100387C93 /* LoadingView.swift in Sources */,
 				8E207376246445DE004F5D91 /* NetworkViewModel.swift in Sources */,
 				8E2073732464459C004F5D91 /* ParkingNetwork.swift in Sources */,
 				8E20733624643E76004F5D91 /* ContentView.swift in Sources */,
+				8E961CF524652859000631C7 /* Car.swift in Sources */,
 				8ED82C7B24644AC900387C93 /* ErrorView.swift in Sources */,
 				8E20737124644568004F5D91 /* NetworkEnvironment.swift in Sources */,
 				8E20736324643F26004F5D91 /* ParkingViewRow.swift in Sources */,

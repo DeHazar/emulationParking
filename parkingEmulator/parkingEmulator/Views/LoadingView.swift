@@ -12,7 +12,7 @@ struct LoadingView: View {
     @State private var animateInnerCicle = false
     var body: some View {
         ZStack {
-            Color(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1))
+            Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))
                 .edgesIgnoringSafeArea(.all)
             Circle()
                 .frame(width: 30, height: 30)

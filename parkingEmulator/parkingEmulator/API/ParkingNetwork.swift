@@ -11,6 +11,8 @@ import Foundation
 struct ParkingNetwork: Network {
     var enviroment: NetworkEnvironment = .parkingUrl
     var decoder: JSONDecoder = JSONDecoder()
+    var headers: [String: String]?
+    var parametrs: [String: Any]?
 }
 
 import Foundation
@@ -18,16 +20,21 @@ import Foundation
 enum ParkingRoute {
     case parkings
     case searchCars
+    case getSum
+    case paid
 }
 
 extension ParkingRoute: NetworkRoute {
-
     var path: String {
         switch self {
         case .parkings:
             return "/parking/skuds/read.php"
         case .searchCars:
-            return "/parking/cars/findCars.php?q={CarNumber}"
+            return "/parking/cars/search.php"
+        case .getSum:
+            return "/parking/cars/total.php"
+        case .paid:
+            return "/parking/cars/paid.php"
         }
     }
 
@@ -36,6 +43,10 @@ extension ParkingRoute: NetworkRoute {
         case .parkings:
             return .get
         case .searchCars:
+            return .post
+        case .getSum:
+            return .post
+        case .paid:
             return .post
         }
     }

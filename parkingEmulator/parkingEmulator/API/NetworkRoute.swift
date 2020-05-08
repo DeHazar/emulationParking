@@ -20,7 +20,7 @@ extension NetworkRoute {
     var headers: [String : String]? {
         return nil
     }
-
+    
     func create(for enviroment: NetworkEnvironment) -> URLRequest {
 
         var request = URLRequest(url: URL(string: enviroment.rawValue + path)!)

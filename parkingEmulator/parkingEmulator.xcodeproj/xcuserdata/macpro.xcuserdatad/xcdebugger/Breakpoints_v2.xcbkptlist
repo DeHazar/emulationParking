@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7B1B5A9F-25AC-4965-A9A4-5C6CE81470F4"
-            shouldBeEnabled = "No"
+            uuid = "7A973685-47FD-4DCA-B935-F926EBC2603A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "parkingEmulator/ViewModel/NetworkViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "fetch(route:)"
             landmarkType = "7">
          </BreakpointContent>

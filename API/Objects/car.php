@@ -121,34 +121,55 @@ class Car {
 
     }
 
+    function readCarsWithCarNumber() {
+        $query = "SELECT
+                 p.id, p.carNumber, p.description, p.parkingId, t.id as transactionId, t.transactionPaidTime, t.transactionStartTime, t.total, t.isPaid
+            FROM
+                " . $this->table_name . " p
+                LEFT JOIN
+                    transactions t
+                        ON p.transactionId = t.id
+            WHERE p.carNumber = :carNumber AND p.parkingId = :parkingId
+            ORDER BY
+                p.id ASC";
+
+        // подготовка запроса
+        $stmt = $this->conn->prepare($query);
+        $this->carNumber=htmlspecialchars(strip_tags($this->carNumber));
+        $this->parkingId = htmlspecialchars(strip_tags($this->parkingId));
+        // привязка значений
+        $stmt->bindParam(":carNumber", $this->carNumber);
+        $stmt->bindParam(":parkingId", $this->parkingId);
+        // выполняем запрос
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     // метод update() - обновление товара
     function update() {
         // запрос для обновления записи (товара)
-        $query = "UPDATE
-                " . $this->table_name . "
+        $query = "UPDATE cars
             SET
-                name = :name,
-                totalPrice = :totalPrice,
-                description = :description,
-                endDate = :endDate
-            WHERE
+                carNumber = :carNumber,
+                parkingId = :parkingId,
+                description = :description 
+                WHERE
                 id = :id";
 
         // подготовка запроса
         $stmt = $this->conn->prepare($query);
 
         // очистка
-        $this->name=htmlspecialchars(strip_tags($this->name));
-        $this->totalPrice=htmlspecialchars(strip_tags($this->price));
+        $this->carNumber=htmlspecialchars(strip_tags($this->carNumber));
+        $this->parkingId=htmlspecialchars(strip_tags($this->parkingId));
         $this->description=htmlspecialchars(strip_tags($this->description));
-        $this->endDate=htmlspecialchars(strip_tags($this->category_id));
         $this->id=htmlspecialchars(strip_tags($this->id));
 
         // привязываем значения
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':price', $this->totalPrice);
+        $stmt->bindParam(':carNumber', $this->carNumber);
+        $stmt->bindParam(':parkingId', $this->parkingId);
         $stmt->bindParam(':description', $this->description);
-        $stmt->bindParam(':category_id', $this->endDate);
         $stmt->bindParam(':id', $this->id);
 
         // выполняем запрос

@@ -15,7 +15,7 @@ class Transaction {
     public $transactionStartTime;
     public $transactionPaidTime;
     public $total;
-    private $isPaid;
+    public $isPaid;
 
 
     // конструктор для соединения с базой данных
@@ -95,21 +95,21 @@ class Transaction {
         $this->transactionStartTime = $row['transactionStartTime'];
         $this->transactionPaidTime = $row['transactionPaidTime'];
         $this->total = $row['total'];
-        $this->isPaid = $row['$isPaid'];
+        $this->isPaid = $row['isPaid'];
 
     }
 
     // метод update() - обновление товара
     function update(){
-
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // запрос для обновления записи (товара)
         $query = "UPDATE
                 " . $this->tableName . "
             SET
                 transactionStartTime = :transactionStartTime,
                 transactionPaidTime = :transactionPaidTime,
-                total = :total
-                isPaid = :isPaid
+                total = :total,
+                isPaid = :isPaid 
             WHERE
                 id = :id";
 

@@ -13,14 +13,22 @@ protocol Network {
 
     var decoder: JSONDecoder { get set }
     var enviroment: NetworkEnvironment { get set }
+
+    var headers: [String: String]? { get set }
+    var parametrs: [String: Any]? { get set }
 }
 
 extension Network {
 
     func fetch<T: Decodable>(route: NetworkRoute) -> AnyPublisher<T, Error> {
 
-        let request = route.create(for: enviroment)
-
+        var request = route.create(for: enviroment)
+        if !(parametrs?.isEmpty ?? true) {
+            request.httpBody = try? JSONSerialization.data(withJSONObject: parametrs!, options:JSONSerialization.WritingOptions.prettyPrinted)
+        }
+        if !(headers?.isEmpty ?? true) {
+            request.allHTTPHeaderFields = headers
+        }
         return URLSession.shared
             .dataTaskPublisher(for: request)
             .tryCompactMap { result in
