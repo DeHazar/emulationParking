@@ -20,6 +20,7 @@ class Car {
     public $transaction;
     public $parkingId;
 
+
     // конструктор для соединения с базой данных
     public function __construct($db){
         $this->conn = $db;
@@ -36,6 +37,7 @@ class Car {
                 LEFT JOIN
                     transactions t
                         ON p.transactionId = t.id
+
             ORDER BY
                 p.id DESC";
 

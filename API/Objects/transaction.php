@@ -17,6 +17,7 @@ class Transaction {
     public $total;
     private $isPaid;
 
+
     // конструктор для соединения с базой данных
     public function __construct($db){
         $this->conn = $db;
@@ -95,6 +96,7 @@ class Transaction {
         $this->transactionPaidTime = $row['transactionPaidTime'];
         $this->total = $row['total'];
         $this->isPaid = $row['$isPaid'];
+
     }
 
     // метод update() - обновление товара
@@ -142,6 +144,7 @@ class Transaction {
         return true;
     }
 
+
     // метод delete - удаление товара
     function delete(){
 
@@ -165,6 +168,4 @@ class Transaction {
         return false;
     }
 }
-
-
 ?>
