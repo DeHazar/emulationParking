@@ -21,37 +21,32 @@ $database = new Database();
 $db = $database->getConnection();
 
 // подготовка объекта
-$car = new Skud($db);
+$parking = new Skud($db);
+$car = new Car($db);
 
 // получаем id товара для редактирования
 $data = json_decode(file_get_contents("php://input"));
 
 // установим id свойства товара для редактирования
-$car->id = $data->id;
+$parking->id = $data->id;
+$car->carNumber = $data->carNumber;
+$car->parkingId = $data->id;
 
-// установим значения свойств товара
-$car->name = $data->name;
-$car->totalPrice = $data->totalPrice;
-$car->description = $data->description;
-$car->endDate = $data->endDate;
+$car->readCarWithCarNumber();
+$parking->readOne();
 
-// обновление товара
-if ($car->update()) {
-
-    // установим код ответа - 200 ok
+if ($car->transaction->isPaid) {
+    $parking->outcoming();
     http_response_code(200);
 
     // сообщим пользователю
-    echo json_encode(array("message" => "Товар был обновлён."), JSON_UNESCAPED_UNICODE);
-}
+    echo json_encode(array("message" => "Открывай."), JSON_UNESCAPED_UNICODE);
 
-// если не удается обновить товар, сообщим пользователю
-else {
+} else {
+    http_response_code(500);
 
-    // код ответа - 503 Сервис не доступен
-    http_response_code(503);
+    // сообщим пользователю
+    echo json_encode(array("message" => "Не оплатил."), JSON_UNESCAPED_UNICODE);
 
-    // сообщение пользователю
-    echo json_encode(array("message" => "Невозможно обновить товар."), JSON_UNESCAPED_UNICODE);
 }
 ?>

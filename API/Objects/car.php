@@ -50,6 +50,7 @@ class Car {
         return $stmt;
     }
 
+
     // метод create - заезд машины
     function create() {
         #$this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -144,6 +145,44 @@ class Car {
         $stmt->execute();
 
         return $stmt;
+    }
+
+
+    function readCarWithCarNumber() {
+        $query = "SELECT
+                 p.id, p.carNumber, p.description, p.parkingId, t.id as transactionId, t.transactionPaidTime, t.transactionStartTime, t.total, t.isPaid
+            FROM
+                " . $this->table_name . " p
+                LEFT JOIN
+                    transactions t
+                        ON p.transactionId = t.id
+            WHERE p.carNumber = :carNumber AND p.parkingId = :parkingId
+            ORDER BY id DESC
+            LIMIT
+                0,1";
+
+        // подготовка запроса
+        $stmt = $this->conn->prepare( $query );
+        // привязываем id товара, который будет обновлен
+        $stmt->bindParam(":carNumber", $this->carNumber);
+        $stmt->bindParam(":parkingId", $this->parkingId);
+        // выполняем запрос
+        $stmt->execute();
+
+        // получаем извлеченную строку
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        // установим значения свойств объекта
+        $this->carNumber = $row['carNumber'];
+        $this->description = $row['description'];
+        $transaction = new Transaction($this->conn);
+        $transaction->id =  $row['transactionId'];
+        $transaction -> readOne();
+
+        $this->transaction = $transaction;
+        $this->parkingId = $row['parkingId'];
+
+
+        $stmt->execute();
     }
 
     // метод update() - обновление товара
