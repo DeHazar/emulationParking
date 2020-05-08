@@ -13,6 +13,7 @@ class Skud
 
     // свойства объекта
     public $id;
+    public $address;
     public $emptyPlaces;
     public $priceForMinute;
 
@@ -58,6 +59,7 @@ class Skud
     }
 
     function readOne() {
+//        $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // запрос для чтения одной записи
 
         $query = "SELECT *
@@ -78,9 +80,13 @@ class Skud
 
         // получаем извлеченную строку
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        // установим значения свойств объекта
-        $this->emptyPlaces = $row['emptyPlaces'];
-        $this->priceForMinute = $row['priceForMinute'];
+        if ($row) {
+            // установим значения свойств объекта
+            $this->address = $row['address'];
+            $this->emptyPlaces = $row['emptyPlaces'];
+            $this->priceForMinute = $row['priceForMinute'];
+        }
+
     }
 
     function update() {

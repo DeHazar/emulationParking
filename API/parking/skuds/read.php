@@ -31,7 +31,7 @@ if ($num>0) {
 
     // массив товаров
     $cars_arr=array();
-    $cars_arr["records"]=array();
+
 
     // получаем содержимое нашей таблицы
     // fetch() быстрее, чем fetchAll()
@@ -42,10 +42,11 @@ if ($num>0) {
 
         $car_item=array(
             "id" => $id,
-            "carNumber" => $emptyPlaces
+            "carNumber" => $emptyPlaces,
+                        "address" => $address
         );
 
-        array_push($cars_arr["records"], $car_item);
+        array_push($cars_arr, $car_item);
     }
 
     // устанавливаем код ответа - 200 OK

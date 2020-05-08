@@ -15,6 +15,7 @@ class Transaction {
     public $transactionStartTime;
     public $transactionPaidTime;
     public $total;
+    private $isPaid;
 
     // конструктор для соединения с базой данных
     public function __construct($db){
@@ -93,6 +94,7 @@ class Transaction {
         $this->transactionStartTime = $row['transactionStartTime'];
         $this->transactionPaidTime = $row['transactionPaidTime'];
         $this->total = $row['total'];
+        $this->isPaid = $row['$isPaid'];
     }
 
     // метод update() - обновление товара
@@ -105,6 +107,7 @@ class Transaction {
                 transactionStartTime = :transactionStartTime,
                 transactionPaidTime = :transactionPaidTime,
                 total = :total
+                isPaid = :isPaid
             WHERE
                 id = :id";
 
@@ -122,6 +125,7 @@ class Transaction {
         $stmt->bindParam(':transactionPaidTime', $this->transactionPaidTime);
         $stmt->bindParam(':total', $this->total);
         $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':isPaid', $this->isPaid);
 
         // выполняем запрос
         if ($stmt->execute()) {
@@ -129,6 +133,13 @@ class Transaction {
         }
 
         return false;
+    }
+
+    function paidTransaction() {
+        $this->readOne();
+        $this->isPaid = true;
+        $this->update();
+        return true;
     }
 
     // метод delete - удаление товара

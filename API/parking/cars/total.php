@@ -35,7 +35,7 @@ if ($total > 0) {
     http_response_code(200);
 
     // сообщим пользователю
-    echo json_encode(array("total" => $total, "startTime" => $car->transaction->transactionStartTime, "message" => "Успешно."), JSON_UNESCAPED_UNICODE);
+    echo json_encode(array("transactionId" => $car->transaction->id, "total" => $total, "startTime" => $car->transaction->transactionStartTime, "message" => "Успешно."), JSON_UNESCAPED_UNICODE);
 }
 
 // если не удается обновить товар, сообщим пользователю
