@@ -12,10 +12,11 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// получаем соединение с базой данных 
-include_once '../../Config/database.php';
-include_once '../../objects/car.php';
-include_once '../../objects/skud.php';
+// получаем соединение с базой данных
+
+include_once $_SERVER['DOCUMENT_ROOT'].'/API/Config/database.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/API/objects/car.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/API/objects/skud.php';
 
 $database = new Database();
 $db = $database->getConnection();

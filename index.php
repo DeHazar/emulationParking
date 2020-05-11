@@ -6,9 +6,10 @@
  * Time: 20:43
  */
 
+
 // подключаем файл для работы с БД и объектом Product
-include_once 'API/Config/database.php';
-include_once 'API/objects/car.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/API/Config/database.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/API/objects/car.php';
 
 
 function GetStringAfterSecondSlashInURL($the_url)

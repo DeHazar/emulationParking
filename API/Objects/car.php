@@ -170,6 +170,9 @@ class Car {
         $stmt->execute();
 
         // получаем извлеченную строку
+        if ($stmt->rowCount() != 1) {
+            return false;
+        }
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         // установим значения свойств объекта
         $this->carNumber = $row['carNumber'];
@@ -180,9 +183,7 @@ class Car {
 
         $this->transaction = $transaction;
         $this->parkingId = $row['parkingId'];
-
-
-        $stmt->execute();
+        return true;
     }
 
     // метод update() - обновление товара

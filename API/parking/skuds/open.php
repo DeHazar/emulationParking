@@ -32,7 +32,13 @@ $parking->id = $data->id;
 $car->carNumber = $data->carNumber;
 $car->parkingId = $data->id;
 
-$car->readCarWithCarNumber();
+if ($car->readCarWithCarNumber()) {
+} else {
+    http_response_code(500);
+
+    // сообщим пользователю
+    echo json_encode(array("message" => "Машина не найдена на данной парковке."), JSON_UNESCAPED_UNICODE);
+}
 $parking->readOne();
 
 if ($car->transaction->isPaid) {
