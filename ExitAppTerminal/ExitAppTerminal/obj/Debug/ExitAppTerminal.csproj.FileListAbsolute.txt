@@ -1,0 +1,12 @@
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\bin\Debug\ExitAppTerminal.exe.config
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\bin\Debug\ExitAppTerminal.exe
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\bin\Debug\ExitAppTerminal.pdb
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\bin\Debug\RestSharp.dll
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\bin\Debug\RestSharp.xml
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.csprojAssemblyReference.cache
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.Form1.resources
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.Properties.Resources.resources
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.csproj.GenerateResource.cache
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.csproj.CopyComplete
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.exe
+C:\Users\garae\source\repos\ExitAppTerminal\ExitAppTerminal\obj\Debug\ExitAppTerminal.pdb

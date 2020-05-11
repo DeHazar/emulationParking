@@ -1,0 +1,12 @@
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.csprojAssemblyReference.cache
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.Properties.Resources.resources
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.csproj.GenerateResource.cache
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\bin\Debug\OpenAppTerminal.exe.config
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\bin\Debug\OpenAppTerminal.exe
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\bin\Debug\OpenAppTerminal.pdb
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.exe
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.pdb
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\bin\Debug\RestSharp.dll
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\bin\Debug\RestSharp.xml
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.csproj.CopyComplete
+C:\Users\garae\source\repos\OpenAppTerminal\OpenAppTerminal\obj\Debug\OpenAppTerminal.Form1.resources
